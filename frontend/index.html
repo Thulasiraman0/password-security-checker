@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Security Checker</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="shield-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </span>
+      
+                <h1>Password Security Checker</h1>
+            </div>
+            <p class="subtitle">Check your password strength and security</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- Tab Navigation -->
+            <div class="tabs">
+                <button class="tab-button active" data-tab="checker">
+                    <i class="fas fa-search"></i> Check Password
+                </button>
+                <button class="tab-button" data-tab="generator">
+                    <i class="fas fa-bolt"></i> Generate Password
+                </button>
+                <button class="tab-button" data-tab="tips">
+                    <i class="fas fa-lightbulb"></i> Security Tips
+                </button>
+            </div>
+
+            <!-- Password Checker Tab -->
+            <div class="tab-content active" id="checker">
+                <div class="password-input-section">
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="passwordInput" 
+                            class="password-field"
+                            placeholder="Enter your password to check"
+                            autocomplete="off"
+                        >
+                        <button class="toggle-password" id="togglePassword" title="Show/Hide Password">
+                            <i class="fas fa-eye" id="toggleIcon"></i>
+                        </button>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="checkButton">
+                        <i class="fas fa-chart-line"></i> Analyze Password
+                    </button>
+                </div>
+
+                <!-- Strength Meter -->
+                <div class="strength-section" id="strengthSection" style="display: none;">
+                    <h3><i class="fas fa-tachometer-alt"></i> Password Strength</h3>
+                    
+                    <div class="strength-meter">
+                        <div class="strength-bar" id="strengthBar"></div>
+                    </div>
+                    
+                    <div class="strength-info">
+                        <div class="strength-label" id="strengthLabel">-</div>
+                        <div class="strength-score" id="strengthScore">-</div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label"><i class="fas fa-ruler"></i> Length</div>
+                            <div class="stat-value" id="statLength">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label"><i class="fas fa-random"></i> Entropy</div>
+                            <div class="stat-value" id="statEntropy">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label"><i class="fas fa-clock"></i> Crack Time</div>
+                            <div class="stat-value" id="statCrackTime">-</div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback -->
+                    <div class="feedback-section" id="feedbackSection">
+                        <h4><i class="fas fa-info-circle"></i> Recommendations</h4>
+                        <ul id="feedbackList"></ul>
+                    </div>
+                </div>
+
+                <!-- Breach Check Section -->
+                <div class="breach-section" id="breachSection" style="display: none;">
+                    <h3><i class="fas fa-shield-alt"></i> Data Breach Check</h3>
+                    <button class="btn btn-secondary" id="checkBreachButton">
+                        <i class="fas fa-search"></i> Check for Data Breaches
+                    </button>
+                    <div class="breach-result" id="breachResult"></div>
+                    <p class="privacy-note">
+                        <i class="fas fa-lock"></i> Privacy Protected: We use k-anonymity. Your password is never sent to any server.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Password Generator Tab -->
+            <div class="tab-content" id="generator">
+                <div class="generator-section">
+                    <h3><i class="fas fa-key"></i> Password Generator</h3>
+                    
+                    <!-- Generator Type -->
+                    <div class="generator-type-tabs">
+                        <button class="gen-type-btn active" data-type="random">
+                            <i class="fas fa-random"></i> Random Password
+                        </button>
+                        <button class="gen-type-btn" data-type="passphrase">
+                            <i class="fas fa-quote-right"></i> Passphrase
+                        </button>
+                    </div>
+
+                    <!-- Random Password Generator -->
+                    <div class="generator-options" id="randomGenerator">
+                        <div class="option-group">
+                            <label for="lengthSlider">
+                                <i class="fas fa-sliders-h"></i> Password Length: <span id="lengthValue">16</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="lengthSlider" 
+                                min="8" 
+                                max="32" 
+                                value="16"
+                                class="slider"
+                            >
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="useLowercase" checked>
+                                <span><i class="fas fa-font"></i> Lowercase (a-z)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="useUppercase" checked>
+                                <span><i class="fas fa-font"></i> Uppercase (A-Z)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="useDigits" checked>
+                                <span><i class="fas fa-hashtag"></i> Numbers (0-9)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="useSpecial" checked>
+                                <span><i class="fas fa-asterisk"></i> Special (!@#$%)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="excludeAmbiguous">
+                                <span><i class="fas fa-ban"></i> Exclude Ambiguous (0,O,l,I)</span>
+                            </label>
+                        </div>
+
+                        <button class="btn btn-primary" id="generateButton">
+                            <i class="fas fa-cog fa-spin"></i> Generate Password
+                        </button>
+                    </div>
+
+                    <!-- Passphrase Generator -->
+                    <div class="generator-options" id="passphraseGenerator" style="display: none;">
+                        <div class="option-group">
+                            <label for="wordCount">
+                                <i class="fas fa-sliders-h"></i> Number of Words: <span id="wordCountValue">4</span>
+                            </label>
+                            <input 
+                                type="range" 
+                                id="wordCount" 
+                                min="3" 
+                                max="7" 
+                                value="4"
+                                class="slider"
+                            >
+                        </div>
+
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="capitalizeWords" checked>
+                                <span><i class="fas fa-text-height"></i> Capitalize Words</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="addNumber" checked>
+                                <span><i class="fas fa-plus"></i> Add Number</span>
+                            </label>
+                        </div>
+
+                        <button class="btn btn-primary" id="generatePassphraseButton">
+                            <i class="fas fa-cog fa-spin"></i> Generate Passphrase
+                        </button>
+                    </div>
+
+                    <!-- Generated Password Display -->
+                    <div class="generated-password" id="generatedPasswordSection" style="display: none;">
+                        <div class="password-display">
+                            <input 
+                                type="text" 
+                                id="generatedPassword" 
+                                class="generated-password-field"
+                                readonly
+                            >
+                            <button class="btn-icon" id="copyButton" title="Copy to clipboard">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <div class="copy-feedback" id="copyFeedback"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Tips Tab -->
+            <div class="tab-content" id="tips">
+                <div class="tips-section">
+                    <h3><i class="fas fa-user-shield"></i> Password Security Best Practices</h3>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-check-circle"></i> DO:</h4>
+                        <ul>
+                            <li><i class="fas fa-angle-right"></i> Use at least 12 characters (longer is better)</li>
+                            <li><i class="fas fa-angle-right"></i> Mix uppercase, lowercase, numbers, and symbols</li>
+                            <li><i class="fas fa-angle-right"></i> Use a unique password for each account</li>
+                            <li><i class="fas fa-angle-right"></i> Use a password manager to store passwords</li>
+                            <li><i class="fas fa-angle-right"></i> Enable two-factor authentication (2FA)</li>
+                            <li><i class="fas fa-angle-right"></i> Use passphrases: they're long and memorable</li>
+                            <li><i class="fas fa-angle-right"></i> Change passwords if you suspect a breach</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4><i class="fas fa-times-circle"></i> DON'T:</h4>
+                        <ul>
+                            <li><i class="fas fa-angle-right"></i> Use personal information (names, birthdays, etc.)</li>
+                            <li><i class="fas fa-angle-right"></i> Use common words or patterns (password123, qwerty)</li>
+                            <li><i class="fas fa-angle-right"></i> Reuse passwords across multiple sites</li>
+                            <li><i class="fas fa-angle-right"></i> Share passwords with others</li>
+                            <li><i class="fas fa-angle-right"></i> Write passwords on paper or sticky notes</li>
+                            <li><i class="fas fa-angle-right"></i> Use sequential characters (abc, 123)</li>
+                            <li><i class="fas fa-angle-right"></i> Save passwords in browsers on shared computers</li>
+                        </ul>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4><i class="fas fa-bullseye"></i> Password Examples:</h4>
+                        <div class="example-grid">
+                            <div class="example bad">
+                                <span class="label">
+                                    <i class="fas fa-exclamation-triangle"></i> Bad
+                                </span>
+                                <code>password123</code>
+                                <code>john1990</code>
+                                <code>qwerty</code>
+                            </div>
+                            <div class="example good">
+                                <span class="label">
+                                    <i class="fas fa-check-circle"></i> Good
+                                </span>
+                                <code>Tr0pic@l-S7orm!2024</code>
+                                <code>Purple$Elephant#Dance99</code>
+                                <code>Coffee-Mountain-Sky-742</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip-card">
+                        <h4><i class="fas fa-lock"></i> Additional Security Measures:</h4>
+                        <ul>
+                            <li><i class="fas fa-angle-right"></i> <strong>Password Managers:</strong> LastPass, 1Password, Bitwarden</li>
+                            <li><i class="fas fa-angle-right"></i> <strong>Two-Factor Authentication:</strong> Google Authenticator, Authy</li>
+                            <li><i class="fas fa-angle-right"></i> <strong>Regular Updates:</strong> Change passwords every 3-6 months</li>
+                            <li><i class="fas fa-angle-right"></i> <strong>Breach Monitoring:</strong> Use services like Have I Been Pwned</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p><i class="fas fa-lock"></i> Your passwords are never stored or transmitted. All checks are performed securely.</p>
+            <h4 class="credit"><i class="fas fa-users"></i> TEAM <br>
+              Thulasiraman 23MIS0164 | Kalaiarasi 23MIS0216 | Network Information Security</h4>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
