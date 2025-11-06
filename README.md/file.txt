@@ -1,0 +1,120 @@
+# 🔐 Password Security Checker
+
+A full-stack web application that helps users **analyze their password strength**, **generate secure passwords**, and **learn security tips** — all with a clean, futuristic interface.
+
+---
+
+## 🚀 Overview
+
+The **Password Security Checker** allows users to:
+- ✅ Check password strength based on complexity, length, and common patterns  
+- 🔒 Get real-time feedback on how to improve password security  
+- ⚡ Generate strong, random passwords instantly  
+- 💡 View helpful security tips for better password hygiene  
+
+The backend is built with **Flask (Python)** for secure password analysis logic, and the frontend is powered by **HTML, CSS, and JavaScript**, designed with a neon cyber theme.
+
+---
+
+## 🧠 Features
+
+| Feature | Description |
+|----------|-------------|
+| 🔍 Password Strength Check | Evaluates complexity, length, and entropy of user passwords |
+| ⚙️ Password Generator | Generates random strong passwords instantly |
+| 🧠 Security Tips | Displays simple tips for better password management |
+| 🌐 API Integration | Frontend communicates with Flask backend using REST API |
+| 🔒 CORS Enabled | Securely allows frontend-backend communication |
+| 🧰 Modular Design | Easily extendable with additional features or APIs |
+
+---
+
+## 🏗️ Tech Stack
+
+**Frontend**
+- HTML5  
+- CSS3  
+- JavaScript (Vanilla)
+
+**Backend**
+- Python 3  
+- Flask  
+- Flask-CORS  
+- Gunicorn (for deployment)
+
+---
+
+## ⚙️ Installation & Setup (Local)
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/Thulasiraman0/password-security-checker.git
+cd password-security-checker
+```
+2️⃣ Setup backend
+```bash
+cd backend
+pip install -r requirements.txt
+python app.py
+Your backend should now run on
+👉 http://127.0.0.1:5000
+```
+
+3️⃣ Setup frontend
+```bash
+Copy code
+cd ../frontend
+You can open index.html directly, or better — run a local web server:
+
+Copy code
+python -m http.server 8000
+Now open
+👉 http://localhost:8000
+and interact with the app.
+```
+Build command:
+
+```bash
+Copy code
+pip install -r requirements.txt
+Start command:
+```
+
+Example request:
+
+```bash
+Copy code
+POST /api/check-password
+{
+  "password": "MyP@ssw0rd!"
+}
+Example response:
+
+json
+Copy code
+{
+  "score": 4,
+  "advice": ["Add more symbols", "Avoid dictionary words"]
+}
+```
+📁 Project Structure
+```pgsql
+password-security-checker/
+│
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Procfile
+│
+├── frontend/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+│
+└── README.md
+```
+
+## 🧑‍💻 Author
+Thulasiraman
+
+
